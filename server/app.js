@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// ⭐ ADD THIS DIRECT ROUTE - IT WILL TAKE PRECEDENCE ⭐
+
 app.get('/', (req, res) => {
   res.send('My Student ID is 21938690. Welcome to Express');
 });
