@@ -1,25 +1,24 @@
 import express from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
+const app = express();
 
-var app = express();
-
-app.use(logger('dev'));
+// Simple middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../public')));
 
-
+// Main route that definitely shows your student ID
 app.get('/', (req, res) => {
   res.send('My Student ID is 21938690. Welcome to Express');
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Health check route
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
 
 export default app;
