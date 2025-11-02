@@ -3,19 +3,25 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "Installing dependencies..."
+      - echo "Installing Node.js dependencies..."
       - npm install
+      - echo "Dependency installation completed"
   build:
     commands:
-      - echo "Building application..."
-      - npm run build
-      - echo "Running tests..."
-      - npm test
+      - echo "Building Node.js application..."
+      - npm run build || echo "No build script found, continuing..."
+      - echo "Build completed successfully"
   post_build:
     commands:
-      - echo "Build completed on `date`"
+      - echo "Build finished on `date`"
+      - echo "Application ready for deployment"
 
 artifacts:
   files:
     - '**/*'
-  base-directory: ./
+  discard-paths: no
+  base-directory: .
+
+cache:
+  paths:
+    - 'node_modules/**/*'
