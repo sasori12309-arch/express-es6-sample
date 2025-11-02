@@ -14,6 +14,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.get('/', (req, res) => {
+  res.send('My Student ID is 21938690. Welcome to Express');
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
