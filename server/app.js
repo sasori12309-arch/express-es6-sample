@@ -1,15 +1,20 @@
-GNU nano 6.2
-const express = require('express');
-const app = express();
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
-app.get('/', (_req, res) => {
-res.send('My Student ID is 21694785. Welcome to Express');
-});
+import indexRouter from './routes/index';
+import usersRouter from './routes/users';
 
-const port = process.env.PORT | | 3000;
-const host = '0.0.0.0';
-app.listen(port, host, () => {
-console. log( Server running on http://${host}:${port} );
-});
+var app = express();
 
-module.exports = app;
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
+export default app;
